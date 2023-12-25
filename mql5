@@ -1,0 +1,144 @@
+mql5
+//+------------------------------------------------------------------+
+//| Turbo Scalper MT5                                               |
+//| Developer: Forex Robot Easy Team                                |
+//| Website: forexroboteasy.com                                     |
+//+------------------------------------------------------------------+
+
+// Define input parameters
+input double TakeProfit = 10; // Take Profit value
+input double StopLoss = 20; // Stop Loss value
+input double TrailingStop = 5; // Trailing Stop value
+input bool ActivateNewsFilter = true; // Activate news filter
+input int NewsFilterTime = 5; // Time to close orders before news event (in minutes)
+
+// Define global variables
+datetime newsTime; // Time of the upcoming news event
+bool newsFilterActivated = false; // Indicator to check if news filter is activated
+
+//+------------------------------------------------------------------+
+//| Expert initialization function                                   |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+    // Fetch news event time from MQL5.com calendar
+    newsTime = TimeCurrent() + NewsFilterTime * 60;
+
+    return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Expert deinitialization function                                 |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+    // Perform any necessary cleanup actions
+}
+
+//+------------------------------------------------------------------+
+//| Expert tick function                                             |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+    // Check if news filter is activated and close orders before news event
+    if (ActivateNewsFilter && !newsFilterActivated && TimeCurrent() >= newsTime)
+    {
+        CloseOrders();
+        newsFilterActivated = true;
+    }
+
+    // Check indicator signals and open orders accordingly
+    if (!newsFilterActivated)
+    {
+        if (Signal1())
+        {
+            OpenOrder();
+        }
+        else if (Signal2())
+        {
+            OpenOrder();
+        }
+        else if (Signal3())
+        {
+            OpenOrder();
+        }
+        else if (Signal4())
+        {
+            OpenOrder();
+        }
+    }
+}
+
+//+------------------------------------------------------------------+
+//| Function to open an order                                         |
+//+------------------------------------------------------------------+
+void OpenOrder()
+{
+    // Place the order based on specific criteria
+    // ...
+    // ...
+    // ...
+
+    // Set Take Profit, Stop Loss, and Trailing Stop levels
+    // ...
+    // ...
+    // ...
+}
+
+//+------------------------------------------------------------------+
+//| Function to close all open orders                                 |
+//+------------------------------------------------------------------+
+void CloseOrders()
+{
+    // Close all open orders
+    // ...
+    // ...
+    // ...
+}
+
+//+------------------------------------------------------------------+
+//| Indicator signal functions                                       |
+//+------------------------------------------------------------------+
+bool Signal1()
+{
+    // Check market strength and pivot point formations
+    // ...
+    // ...
+    // ...
+
+    // Return true if signal is valid, false otherwise
+    return true;
+}
+
+bool Signal2()
+{
+    // Check market strength and pivot point formations
+    // ...
+    // ...
+    // ...
+
+    // Return true if signal is valid, false otherwise
+    return true;
+}
+
+bool Signal3()
+{
+    // Check market strength and pivot point formations
+    // ...
+    // ...
+    // ...
+
+    // Return true if signal is valid, false otherwise
+    return true;
+}
+
+bool Signal4()
+{
+    // Check market strength and pivot point formations
+    // ...
+    // ...
+    // ...
+
+    // Return true if signal is valid, false otherwise
+    return true;
+}
